@@ -11,21 +11,27 @@ const Dead CellStatus = 0
 const Alive CellStatus = 1
 
 type Lifegame struct {
-	world [][]CellStatus
+	world  [][]CellStatus
+	width  uint
+	height uint
 }
 
 func randomInit(width uint, height uint) *Lifegame {
-	var game = new(Lifegame)
+	game := new(Lifegame)
 	game.world = make([][]CellStatus, height)
+
 	for iy := 0; iy < int(height); iy++ {
+		game.world[iy] = make([]CellStatus, width)
 		for ix := 0; ix < int(width); ix++ {
-			var cell = Alive
+			cell := Alive
 			if rand.Float32() >= 0.3 {
 				cell = Dead
 			}
-			game.world[iy] = append(game.world[iy], cell)
+			game.world[iy][ix] = cell
 		}
 	}
+	game.width = width
+	game.height = height
 	return game
 }
 
