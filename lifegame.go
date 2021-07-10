@@ -20,9 +20,9 @@ func randomInit(width uint, height uint) *Lifegame {
 	game := new(Lifegame)
 	game.world = make([][]CellStatus, height)
 
-	for iy := 0; iy < int(height); iy++ {
+	for iy := range game.world {
 		game.world[iy] = make([]CellStatus, width)
-		for ix := 0; ix < int(width); ix++ {
+		for ix := range game.world[iy] {
 			cell := Alive
 			if rand.Float32() >= 0.3 {
 				cell = Dead
@@ -30,6 +30,7 @@ func randomInit(width uint, height uint) *Lifegame {
 			game.world[iy][ix] = cell
 		}
 	}
+
 	game.width = width
 	game.height = height
 	return game
