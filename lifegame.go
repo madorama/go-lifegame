@@ -82,7 +82,26 @@ func (game *Lifegame) update() {
 	game.world = newWorld
 }
 
+func (game *Lifegame) render() string {
+	str := ""
+	for _, line := range game.world {
+		for _, cell := range line {
+			symbol := "."
+			if cell == Alive {
+				symbol = "*"
+			}
+			str += symbol
+		}
+		str += "\n"
+	}
+	return str
+}
+
 func main() {
-	var game = *randomInit(50, 50)
-	fmt.Println(&game.world)
+	game := randomInit(50, 50)
+
+	for i := 0; i < 100; i++ {
+		fmt.Println(game.render())
+		game.update()
+	}
 }
